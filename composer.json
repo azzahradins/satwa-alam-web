@@ -15,8 +15,13 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+<<<<<<< HEAD
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.3"
+=======
+        "livewire/livewire": "^2.3",
+        "tymon/jwt-auth": "dev-develop"
+>>>>>>> abbbe02ac83578a67ba50a96e5a342744522e406
     },
     "require-dev": {
         "facade/ignition": "^2.5",
