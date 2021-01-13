@@ -8531,7 +8531,6 @@
         "hamcrest/hamcrest-php",
         "laravel-frontend-presets/tailwindcss",
         "laravel/sail",
-        "laravel/ui",
         "mockery/mockery",
         "myclabs/deep-copy",
         "nunomaduro/collision",
