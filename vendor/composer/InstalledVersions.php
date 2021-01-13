@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '77dc1f4d1e3f0a1f07e85d3af3cd828edb9d7a9f',
+    'reference' => '0ab909a4f80276e4dd0e3cd10d2f756452c135c8',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -513,7 +513,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '77dc1f4d1e3f0a1f07e85d3af3cd828edb9d7a9f',
+      'reference' => '0ab909a4f80276e4dd0e3cd10d2f756452c135c8',
     ),
     'laravel/sail' => 
     array (
@@ -1366,13 +1366,12 @@ private static $installed = array (
     ),
     'tymon/jwt-auth' => 
     array (
-      'pretty_version' => 'dev-develop',
-      'version' => 'dev-develop',
+      'pretty_version' => '1.0.2',
+      'version' => '1.0.2.0',
       'aliases' => 
       array (
-        0 => '1.0.x-dev',
       ),
-      'reference' => '97002349b8a45995ae4c1bbbf2bd9b88d649cae1',
+      'reference' => 'e588cb719539366c0e2f6017f975379cb73e9680',
     ),
     'vlucas/phpdotenv' => 
     array (
