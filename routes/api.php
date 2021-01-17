@@ -18,3 +18,6 @@ Route::post('logout', [\App\Http\Controllers\api\AuthController::class, 'logout'
 Route::post('login', [\App\Http\Controllers\api\AuthController::class, 'login']);
 Route::post('register', [\App\Http\Controllers\api\AuthController::class, 'register']);
 Route::get('user', [\App\Http\Controllers\api\AuthController::class, 'me'])->middleware('jwt.verify');
+
+// Satwa
+Route::get('satwa', [\App\Http\Controllers\api\SatwaController::class, 'index']);

@@ -18,8 +18,8 @@ class AddPosts extends Migration
             $table->unsignedBigInteger('id_animals');
             $table->string('type')->nullable();
             $table->string('photo');
-            $table->bigInteger('lat')->nullable();
-            $table->bigInteger('long')->nullable();
+            $table->double('lat', 10, 6)->nullable();
+            $table->double('lng', 10, 6)->nullable();
             $table->unsignedBigInteger('id_user');
             $table->boolean('verified')->default(false);
             $table->timestamps();
