@@ -29,8 +29,9 @@ class SatwaController extends Controller
     }
 
     public function detail($id){
-        $posts = Posts::where('id_animals', $id);
-        return response()->json($posts[0], 200);
+        $posts = Posts::where('id_animals', '=', $id)
+        ->where('verified', '=', '1')->simplePaginate(10);
+        return response()->json($posts, 200);
     }
 
     public function showPendingPost(){
@@ -47,7 +48,7 @@ class SatwaController extends Controller
             $GetID = Posts::where('id_user', '=', Auth::user()->id)
             ->where('id', '=', $id)->get();
             return response()->json($GetID[0], 200);
-        }catch(MethodNotAllowedHttpException $ex){
+        }catch(Exception $ex){
             return response()->json(["message"=>"Bad Request", "status" => 401], 401);
         }
     }
@@ -113,7 +114,7 @@ class SatwaController extends Controller
         $GetID = Posts::where('id_user', '=', Auth::user()->id)
         ->where('id', '=', $id)
         ->update([
-            'id_animals' => $request->get('id_animals'),
+            'id_animals' => $request->input('id_animals'),
             'type' => $request->input('type'),
             'lat' => $request->input('lat'),
             'lng' =>$request->input('lng'),
@@ -123,7 +124,7 @@ class SatwaController extends Controller
         if($GetID == 1){
             return response()->json(["message"=>"Data berhasil diubah!", "status" => 200], 200);
         }else{
-            return response()->json(["message"=>"Data gagal diubah!", "status" => 401], 401);
+            return response()->json(["message"=>"Anda tidak memiliki hak akses pada situs ini", "status" => 401], 401);
         }
     }
 
