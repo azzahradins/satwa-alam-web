@@ -22,6 +22,7 @@ class AddPosts extends Migration
             $table->double('lng', 10, 6)->nullable();
             $table->unsignedBigInteger('id_user');
             $table->boolean('verified')->default(false);
+            $table->string('user_notes')->nullable();
             $table->timestamps();
 
             $table->foreign('id_animals')->references('id')->on('animals')->onDelete('cascade');

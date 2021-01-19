@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use JWTAuth;
 
-class AuthController extends Controller
-{
-    public function __construct()
-    {
+class AuthController extends Controller{
+    public function __construct(){
         $this->middleware('auth:api', ['except' => ['register', 'login']]);
     }
     /**
@@ -21,8 +19,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
-    {
+    public function login(){
         $credentials = request(['email', 'password']);
         if (! $token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Akun tidak ditemukan', 'status' => 401], 401);
@@ -59,8 +56,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
-    {
+    public function me(){
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
@@ -72,8 +68,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
-    {
+    public function logout(){
         try{
             auth()->logout();
             return response()->json(['message' => 'Successfully logged out', 'status' => 200]);
@@ -90,8 +85,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
-    {
+    protected function respondWithToken($token){
         return response()->json([
             'user' => auth()->user(),
             'access_token' => $token,

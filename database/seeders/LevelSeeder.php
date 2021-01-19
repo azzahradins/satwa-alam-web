@@ -18,14 +18,17 @@ class LevelSeeder extends Seeder
         // Update levels more than 1 records
         $levels = [
             [
+                'id' => '1',
                 'desc' => 'Admin',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],[
+                'id' => '2',
                 'desc' => 'Verified User',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],[
+                'id' => '3',
                 'desc' => 'User',
                 'created_at' => now(),
                 'updated_at' => now(),

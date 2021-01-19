@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Satwa extends Model
+class Posts extends Model
 {
+    // Informasi satwa yang dipost
     use HasFactory;
-    protected $table = 'animals';
+    protected $table = 'posts';
     protected $fillable = [
-        'animals_name', 'scientific_name', 'habitat'
+        'id_animals', 'type', 'photo',
+        'lat', 'lng', 'id_user', 'user_notes'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'updated_at'
     ];
-
 }

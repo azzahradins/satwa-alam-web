@@ -1,6 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +19,10 @@ Route::get('user', [\App\Http\Controllers\api\AuthController::class, 'me'])->mid
 
 // Satwa
 Route::get('satwa', [\App\Http\Controllers\api\SatwaController::class, 'index']);
+Route::get('satwa/{search}', [\App\Http\Controllers\api\SatwaController::class, 'show']);
+Route::get('satwa/detail/{id}', [\App\Http\Controllers\api\SatwaController::class, 'detail']);
+Route::post('satwa/contribution/create', [\App\Http\Controllers\api\SatwaController::class, 'create'])->middleware('jwt.verify');
+Route::get('satwa/contribution/pending', [\App\Http\Controllers\api\SatwaController::class, 'showPendingPost'])->middleware('jwt.verify');
+Route::get('satwa/contribution/pending/{id}', [\App\Http\Controllers\api\SatwaController::class, 'showDetailedPendingPost'])->middleware('jwt.verify');
+Route::delete('satwa/contribution/pending/{id}', [\App\Http\Controllers\api\SatwaController::class, 'delete'])->middleware('jwt.verify');
+Route::put('satwa/contribution/pending/{id}', [\App\Http\Controllers\api\SatwaController::class, 'update'])->middleware('jwt.verify');
