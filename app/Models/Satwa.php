@@ -13,7 +13,7 @@ class Satwa extends Model
     }
     protected $table = 'animals';
     protected $fillable = [
-        'animals_name', 'scientific_name', 'habitat', 'featured_image'
+        'animals_name', 'scientific_name', 'habitat', 'featured_image', 'verified'
     ];
 
     protected $hidden = [

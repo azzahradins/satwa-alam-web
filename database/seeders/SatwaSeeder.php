@@ -31,7 +31,7 @@ class SatwaSeeder extends Seeder
                 'animals_name' => 'Anjing Domestik',
                 'scientific_name' => 'Felis Catus',
                 'species' => 'Mamalia',
-                'featured_image' => 'null',
+                'featured_image' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],[
@@ -39,7 +39,7 @@ class SatwaSeeder extends Seeder
                 'animals_name' => 'Kerang Ajaib',
                 'scientific_name' => 'Crassostrea gigas',
                 'species' => 'Moluska',
-                'featured_image' => 'null',
+                'featured_image' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]];
@@ -50,12 +50,13 @@ class SatwaSeeder extends Seeder
         // Update levels more than 1 records
         $satwa = [
             [
-                'id_animals' => 1,
+                'id_animals' => 2,
                 'type' => null,
                 'photo' => 'upload/images.jpg',
                 'lat' => '-3.4938',
                 'lng' => '7.493801',
                 'id_user' => 1,
+                'verified' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],[
@@ -65,6 +66,7 @@ class SatwaSeeder extends Seeder
                 'lat' => '-3.4938',
                 'lng' => '7.493801',
                 'id_user' => 1,
+                'verified' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]];
