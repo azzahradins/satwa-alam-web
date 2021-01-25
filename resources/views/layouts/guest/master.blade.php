@@ -59,16 +59,15 @@
     </div>
     <nav class="sticky top-0 z-40 bg-darker p-2">
         <ol class="list-reset flex text-white">
-          <li><a href="#" class="font-bold">Home</a></li>
+          <li><a href="{{ route('welcome') }}" class="font-bold">Home</a></li>
           <li><span class="mx-2">/</span></li>
-          <li><a href="#" class="font-bold">Library</a></li>
-          <li><span class="mx-2">/</span></li>
-          <li>Data</li>
+          <li><a href="@yield('name')" class="font-bold">@yield('breadcrumbs')</a></li>
         </ol>
       </nav>
-    @yield('content')
-    {{isset($slot) ? $slot : null}}
-    <div class="bg-secondary text-gray-100 mt-12 pb-6">
+      {{-- {{-- @yield('content') --}}
+      {{isset($slot) ? $slot : null}}
+      <livewire:satwa-component />
+      <div class="bg-secondary text-gray-100 mt-12 pb-6">
         <div class="container content-start h-100 mx-auto flex flex-row border-none sm:border-b-2 px-6 pt-6">
             <div class=" w-4/12 flex flex-col justify-between">
                 <div class="flex-col">
@@ -113,8 +112,8 @@
 
         </div>
     </div>
-    @livewireScripts
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
     @stack('script')
+    @livewireScripts
 </body>
 </html>

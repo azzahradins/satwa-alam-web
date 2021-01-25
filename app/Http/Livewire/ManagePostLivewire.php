@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class ManagePost extends Component
+class ManagePostLivewire extends Component
 {
     public function render()
     {

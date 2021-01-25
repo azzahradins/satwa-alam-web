@@ -17,7 +17,8 @@ class AddAnimals extends Migration
             $table->id();
             $table->string('animals_name');
             $table->string('scientific_name')->nullable();
-            $table->string('habitat');
+            $table->string('species');
+            $table->string('featured_image')->nullable();
             $table->timestamps();
         });
     }

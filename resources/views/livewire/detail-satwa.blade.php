@@ -22,7 +22,7 @@
                 <div class="flex grid grid-cols-6 gap-3 mx-3">
                     @for ($i = 0; $i < 4; $i++)
                     <div class="h-full border rounded-md">
-                        <a href="{{ route('satwa_detail', ['id'=>$i]) }}">
+                        <a href="{{ route('satwa_detail', ['animalsId'=>$i]) }}">
                             <img class="w-full h-max" src="{{ asset('img/placeholder.jpg') }}">
                             <div class="p-2 flex flex-cols">
                                 <div class="w-11/12">
@@ -44,8 +44,10 @@
 @push('script')
     <script>
         document.addEventListener('livewire:load', () => {
+            console.log("{{env('MAP_PUBLIC_KEY')}}");
+            console.log("{{route('geojson', ['id' => $animals])}}")
             const defLocation = [{{$lng}}, {{$lat}}];
-            mapboxgl.accessToken = '{{env('MAP_PUBLIC_KEY')}}';
+            mapboxgl.accessToken = '{{$key}}';
             var map = new mapboxgl.Map({
                 container: 'map',
                 center: defLocation,
@@ -56,7 +58,7 @@
             map.on('load', function () {
                 map.addSource('earthquakes', {
                     type: 'geojson',
-                    data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
+                    data: "{{route('geojson', ['id' => $animals])}}",
                     cluster: true,
                     clusterMaxZoom: 14, // Max zoom to cluster points on
                     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
@@ -127,14 +129,9 @@
 
             map.on('click', 'unclustered-point', function (e) {
             var coordinates = e.features[0].geometry.coordinates.slice();
-            var mag = e.features[0].properties.mag;
-            var tsunami;
-
-            if (e.features[0].properties.tsunami === 1) {
-                tsunami = 'yes';
-            } else {
-                tsunami = 'no';
-            }
+            var animal = e.features[0].properties.animals_name;
+            var found = e.features[0].properties.founded_at;
+            var d = new Date(found);
 
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -143,8 +140,7 @@
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
                 .setHTML(
-                'magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami
-                )
+                'Nama Hewan : ' + animal + '<br>Time Capture: ' + d)
                 .addTo(map);
             });
 

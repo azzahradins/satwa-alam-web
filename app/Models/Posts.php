@@ -9,10 +9,14 @@ class Posts extends Model
 {
     // Informasi satwa yang dipost
     use HasFactory;
+    public function animals(){
+        return $this->belongsTo(Satwa::class, 'id_animals');
+    }
     protected $table = 'posts';
     protected $fillable = [
         'id_animals', 'type', 'photo',
-        'lat', 'lng', 'id_user', 'user_notes'
+        'lat', 'lng', 'id_user', 'user_notes',
+        'verified'
     ];
 
     protected $hidden = [

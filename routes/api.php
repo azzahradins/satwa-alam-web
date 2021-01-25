@@ -20,7 +20,9 @@ Route::get('user', [\App\Http\Controllers\api\AuthController::class, 'me'])->mid
 // Satwa
 Route::get('satwa', [\App\Http\Controllers\api\SatwaController::class, 'index']);
 Route::get('satwa/{search}', [\App\Http\Controllers\api\SatwaController::class, 'show']);
+Route::get('satwa/category/species', [\App\Http\Controllers\api\SatwaController::class, 'jenis']);
 Route::get('satwa/detail/{id}', [\App\Http\Controllers\api\SatwaController::class, 'detail']);
+Route::get('satwa/geojson/{id}.geojson', [\App\Http\Controllers\api\SatwaController::class, 'geojson'])->name('geojson');
 Route::post('satwa/contribution/create', [\App\Http\Controllers\api\SatwaController::class, 'create'])->middleware('jwt.verify');
 Route::get('satwa/contribution/pending', [\App\Http\Controllers\api\SatwaController::class, 'showPendingPost'])->middleware('jwt.verify');
 Route::get('satwa/contribution/pending/{id}', [\App\Http\Controllers\api\SatwaController::class, 'showDetailedPendingPost'])->middleware('jwt.verify');

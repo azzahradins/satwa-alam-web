@@ -76,16 +76,16 @@
         </div>
         <div class="w-full flex flex-row mr-3 text-center justify-center mt-8">
             <div class="w-1/6">
-                <p class="text-4xl">200</p>
+                <p class="text-4xl">{{$kontributor}}</p>
                 <h1>Kontributor</h1>
             </div>
             <div class="w-1/6">
-                <p class="text-4xl">10,000</p>
+                <p class="text-4xl">{{$satwa}}</p>
                 <h1>Jenis Satwa Alam</h1>
             </div>
             <div class="w-1/6">
-                <p class="text-4xl">4</p>
-                <h1>Provinsi</h1>
+                <p class="text-4xl">{{$posts}}</p>
+                <h1>User Submission</h1>
             </div>
         </div>
     </div>

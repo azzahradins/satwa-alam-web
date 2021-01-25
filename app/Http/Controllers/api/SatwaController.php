@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Satwa;
 use App\Models\Posts;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 class SatwaController extends Controller
 {
     public function __construct(){
-        $this->middleware('jwt.verify', ['except' => ['index', 'detail', 'show']]);
+        $this->middleware('jwt.verify', ['except' => ['index', 'detail', 'show', 'jenis', 'geojson']]);
     }
 
     public function index(){
@@ -30,8 +31,40 @@ class SatwaController extends Controller
 
     public function detail($id){
         $posts = Posts::where('id_animals', '=', $id)
-        ->where('verified', '=', '1')->simplePaginate(10);
+        ->where('verified', '=', 1)->simplePaginate(10);
         return response()->json($posts, 200);
+    }
+
+    public function jenis(){
+        $result = Satwa::select('species')
+                    ->groupBy('species')
+                    ->simplePaginate(20);
+        return response()->json($result,200);
+    }
+
+    public function geojson($id){
+        $posts = Posts::where('id_animals', '=', $id)
+        ->where('verified', '=', 1)
+        ->with(['animals'=> function($query){
+            // selecting fields from staff table
+            $query->select(['animals.id','animals.animals_name', 'animals.scientific_name']);
+          }])
+        ->get();
+        //var_dump($posts);
+        return response()->json(SatwaController::convertGeo($posts));
+    }
+
+    function convertGeo($locales){
+        $features = array();
+        foreach($locales as $key => $value) {
+            $features[] = array(
+                'type' => 'Feature',
+                'geometry' => array('type' => 'Point', 'coordinates' => array((float)$value['lat'],(float)$value['lng'])),
+                'properties' => array('id_animals' => $value->id_animals, 'animals_name' => $value->animals->animals_name, 'founded_at' => $value['created_at']),
+            );
+        };
+        return array('type' => 'FeatureCollection', 'features' => $features);
+
     }
 
     public function showPendingPost(){

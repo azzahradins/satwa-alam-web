@@ -38,7 +38,7 @@ return [
     | the view returned by SomeComponent will be wrapped in "layouts.app"
     |
     */
-    'layout' => 'layouts.app',
+    'layout' => 'layouts.guest.master',
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return [
     |
     */
 
-    'asset_url'  => null,
+    'asset_url'  => env('APP_URL', 'http://localhost:8000'),
 
     /*
     |--------------------------------------------------------------------------

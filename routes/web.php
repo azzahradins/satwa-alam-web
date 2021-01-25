@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Livewire\DetailSatwa;
-use App\Http\Livewire\Satwa;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,13 +14,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\Controller::class, 'index'])->name('welcome');
 
 Auth::routes();
 
 Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-Route::get('/admin/contributions', \App\Http\Livewire\ManagePost::class)->name('manage');
-Route::get('/satwa', \App\Http\Livewire\Satwa::class)->name('satwa');
-Route::get('/satwa/detail/{id}', \App\Http\Livewire\DetailSatwa::class)->name('satwa_detail');
+Route::get('/admin/contributions', \App\Http\Livewire\ManagePostLivewire::class)->name('manage');
+Route::get('/satwa', \App\Http\Livewire\SatwaComponent::class)->name('satwa');
+Route::get('/satwa/detail/{animalsId}', \App\Http\Livewire\DetailSatwaLivewire::class)->name('satwa_detail');
+Route::get('/satwa/geojson/{id}.geojson', [\App\Http\Controllers\api\SatwaController::class, 'geojson'])->name('geojson');
