@@ -59,7 +59,7 @@ class SatwaController extends Controller
         foreach($locales as $key => $value) {
             $features[] = array(
                 'type' => 'Feature',
-                'geometry' => array('type' => 'Point', 'coordinates' => array((float)$value['lat'],(float)$value['lng'])),
+                'geometry' => array('type' => 'Point', 'coordinates' => array((float)$value['lng'],(float)$value['lat'])),
                 'properties' => array('id_animals' => $value->id_animals, 'animals_name' => $value->animals->animals_name, 'founded_at' => $value['created_at']),
             );
         };

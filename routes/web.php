@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,11 +16,17 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [\App\Http\Controllers\Controller::class, 'index'])->name('welcome');
+Route::get('/tentang-kami', [\App\Http\Controllers\Controller::class, 'tentangKami'])->name('aboutus');
+Route::get('/bantuan', [\App\Http\Controllers\Controller::class, 'bantuan'])->name('bantuan');
+Route::get('/bantuan#fitur', [\App\Http\Controllers\Controller::class, 'bantuan'])->name('fitur');
+Auth::routes(['verify' => true]);
 
-Auth::routes();
+Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin')->middleware('verified','role');
+Route::get('/admin/contributions', [\App\Http\Controllers\AdminController::class, 'managepost'])->name('admin.manage')->middleware('verified', 'role');
+Route::get('/admin/users',[\App\Http\Controllers\AdminController::class, 'manageuser'])->name('admin.manageuser')->middleware('verified','role');
+Route::get('/admin/satwa',[\App\Http\Controllers\AdminController::class, 'managesatwa'])->name('admin.managesatwa')->middleware('verified','role');
 
-Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-Route::get('/admin/contributions', \App\Http\Livewire\ManagePostLivewire::class)->name('manage');
-Route::get('/satwa', \App\Http\Livewire\SatwaComponent::class)->name('satwa');
-Route::get('/satwa/detail/{animalsId}', \App\Http\Livewire\DetailSatwaLivewire::class)->name('satwa_detail');
+Route::get('/satwa', [\App\Http\Controllers\SatwaController::class, 'index'])->name('satwa');
+Route::get('/satwa/detail/{animalsId}', [\App\Http\Controllers\SatwaController::class, 'detail'])->name('satwa_detail');
 Route::get('/satwa/geojson/{id}.geojson', [\App\Http\Controllers\api\SatwaController::class, 'geojson'])->name('geojson');
+Route::get('/satwacari', [\App\Http\Controllers\Data\SatwasController::class, 'cariSatwa']);

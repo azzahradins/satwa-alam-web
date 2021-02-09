@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller{
     public function __construct(){
@@ -23,6 +24,12 @@ class AuthController extends Controller{
         $credentials = request(['email', 'password']);
         if (! $token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Akun tidak ditemukan', 'status' => 401], 401);
+        }
+        if (empty(auth()->user()->email_verified_at))
+        {
+            return response()->json(['message' => 'Email belum terverifikasi.',
+                'access_token' => $token
+            ], 401);
         }
         return $this->respondWithToken($token);
     }

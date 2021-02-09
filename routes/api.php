@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('logout', [\App\Http\Controllers\api\AuthController::class, 'logout']);
 Route::post('login', [\App\Http\Controllers\api\AuthController::class, 'login']);
+Route::get('email/resend', [\App\Http\Controllers\api\VerificationController::class, 'resend'])->name('verification.resend');
+Route::get('email/verify/{id}/{hash}', [\App\Http\Controllers\api\VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('register', [\App\Http\Controllers\api\AuthController::class, 'register']);
-Route::get('user', [\App\Http\Controllers\api\AuthController::class, 'me'])->middleware('jwt.verify');
+Route::get('user', [\App\Http\Controllers\api\AuthController::class, 'me'])->middleware('jwt.verify', 'verified');
 
 // Satwa
 Route::get('satwa', [\App\Http\Controllers\api\SatwaController::class, 'index']);

@@ -9,16 +9,15 @@
                 <p class="mb-7"> Berkat partisipasimu, secara tidak langsung hal ini dapat membantu meningkatkan kualitas informasi pada penelitian hutan dan konservasi alam </p>
                 <button href="#" class="rounded-full font-semibold text-center">
                     <div class="flex items-center">
-                        <span class="mr-4 text-md"> Saya tertarik untuk ikut kontribusi </span>
+                        <a class="mr-4 text-md" href="{{route('satwa')}}"> Saya tertarik untuk ikut kontribusi </a>
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </div>
                 </button>
             </div>
-            <div class="w-2/3 flex hidden lg:block text-white text-center justify-center self-center font-light text-2xl">
-                [ Place holder gambar disini, contoh : ]
-                <img src="{{ asset("img/dog.svg") }}" class="flex-none w-full h-10 mb-3 flex content-center">
+            <div class="h-full flex hidden lg:block text-white text-center items-center self-center font-light text-2xl">
+                <img src="{{ asset("img/home.svg") }}" class="flex-none w-1/2 h-full mb-3 flex content-center">
             </div>
         </div>
     </div>
@@ -27,19 +26,17 @@
     <div class="container mx-auto w-screen flex flex-col px-6 mb-12">
         <div class="flex flex-row justify-between">
             <h1 class="font-semibold text-lg pb-2"> Kategori Satwa </h1>
-            <a href="#" class="text-green-500"> Lihat lainnya ..</a>
         </div>
         <div class="flex flex-row h-full justify-items-stretch">
             @php
                 // TODO : Tolong carikan gambar yo, misalkan Mamalia = Kucing
                 // Rencananya ini dipindah ke database aja deh, jadi gausah diisi gpp
-                $items= array("Mamalia", "Vertebra", "Serangga", "Burung", "Amfibia", "Reptilia", "Artropoda", "Moluska");
+                // $items= array("Mamalia", "Vertebra", "Serangga", "Burung", "Amfibia", "Reptilia", "Artropoda", "Moluska");
             @endphp
             @foreach ($items as $item)
                 <div class="z-0 flex-1 flex-grow overflow-hidden flex-col text-center shadow-md font-light text-lg mb-2 bg-gray-50
                 transition duration-500 ease-in-out transform hover:-translate-y-0 hover:scale-110 py-4 m-2 rounded-md">
-                    <img src="{{ asset("img/dog.svg") }}" class="flex-none w-full h-10 mb-3 flex content-center">
-                    <a href="#" class=""> {{ $item }} </a>
+                    <a href="#" class=""> {{ $item->species }} </a>
                 </div>
             @endforeach
         </div>

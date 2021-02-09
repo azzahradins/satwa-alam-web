@@ -1,57 +1,72 @@
-<!doctype html>
+{{--
+    location : /admin
+    master layout for admin
+--}}
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Nature Hunt') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Styles -->
+    <title>{{ __('Nature Hunt') }}</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet'>
+    @livewireStyles
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none font-sans">
-    <div id="app">
-        <header class="bg-blue-900 py-6">
-            <div class="container mx-auto flex justify-between items-center px-6">
-                <div>
-                    @guest
-                    <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                        {{ config('app.name', 'Nature Hunt') }}
-                    </a>
-                    @else
-                    <a href="{{ url('/admin') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                        {{ config('app.name', 'Nature Hunt') }}
-                    </a>
-                    @endguest
-                </div>
-                <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
-                    @guest
-                        <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        @if (Route::has('register'))
-                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        @endif
-                    @else
-                        <span>{{ Auth::user()->name }}</span>
 
-                        <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline"
-                           onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            {{ csrf_field() }}
-                        </form>
-                    @endguest
-                </nav>
-            </div>
+<body class="overflow-x-hidden sm:static md:relative min-h-screen w-screen antialiased bg-gray-200 pleading-none font-sans">
+    <div id="app" class="flex flex-row">
+        <header id="nav-content" class="sm:absolute z-50 md:sticky transform sm:-translate-x-full md:translate-x-0 transition-all duration-300 ease-out font-sans lg:w-/12 md:w-3/12 sm:w-7/12 leading-loose flex flex-col min-h-screen flex border-b-2 text-white lg:border-none py-6 pl-6 bg-primary">
+            <h1 class="font-medium text-2xl mb-2">Nature Hunt</h1>
+            <a href="{{ route('admin') }}" class="py-2 pl-5 mb-2 rounded-l-full @if (View::hasSection('dashboard')) @yield('dashboard') @else transition duration-300 ease-in hover:bg-secondary @endif"> Dashboard </a>
+            <a href="{{ route('admin.manageuser') }}" class="py-2 pl-5 mb-2 rounded-l-full @if (View::hasSection('user')) @yield('user') @else transition duration-300 ease-in hover:bg-secondary @endif"> User Management </a>
+            <a href="{{ route('admin.managesatwa') }}" class="py-2 pl-5 mb-2 rounded-l-full @if (View::hasSection('satwa')) @yield('satwa') @else transition duration-300 ease-in hover:bg-secondary @endif"> Informasi Satwa </a>
+            <a href="{{ route('admin.manage') }}" class="py-2 pl-5 mb-2 rounded-l-full @if (View::hasSection('contribution')) @yield('contribution') @else transition duration-300 ease-in hover:bg-secondary @endif"> Kontribusi Satwa </a>
+            <hr class="mr-6 mt-3 mb-3 shadow-lg h-1">
+            <a href="{{ route('satwa') }}" class="py-2 pl-5 mb-2 rounded-l-lg @if (View::hasSection('setting')) @yield('setting') @else transition duration-300 ease-in hover:bg-secondary @endif"> Preview Satwa </a>
+            <a href="{{ route('logout') }}" class="py-2 pl-5 mb-2 rounded-l-lg transition duration-300 ease-in hover:bg-secondary" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                {{ csrf_field() }}
+            </form>
         </header>
 
-        @yield('content')
+        <main class="w-full sm:no-container lg:container md:text-sm flex flex-col sm:mt-10">
+            <div class="w-full sm:px-6 mb-3">
+                <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
+                    <div class="w-full p-5 flex flex-row items-center">
+                        <div class="block lg:hidden md:hidden">
+                            <button id="nav-toggle" class="flex items-center p-2 mr-2 text-gray-500">
+                                <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                            </button>
+                        </div>
+                        <p class="text-gray-700 md:text-2xl sm:text-lg font-semibold leading-relaxed">
+                            @yield('header')
+                        </p>
+                    </div>
+                </section>
+            </div>
+            @yield('content')
+        </main>
     </div>
+    @livewireScripts
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <script>
+        window.addEventListener('click', function(e){
+            if (document.getElementById('nav-toggle').contains(e.target)){
+                document.getElementById('nav-content').classList.replace("sm:-translate-x-full", "sm:-translate-x-0");
+            } else{
+                document.getElementById('nav-content').classList.replace("sm:-translate-x-0", "sm:-translate-x-full");
+            }
+        });
+		//Javascript to toggle the menu
+		// document.getElementById('nav-toggle').onclick = function(){
+        //     // Click on menu button
+		// 	document.getElementById("nav-content").classList.replace("sm:-translate-x-full", "sm:-translate-x-0");
+        // }
+	</script>
+    @stack('script')
 </body>
 </html>

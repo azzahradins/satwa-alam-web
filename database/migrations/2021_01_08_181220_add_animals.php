@@ -19,6 +19,7 @@ class AddAnimals extends Migration
             $table->string('scientific_name')->nullable();
             $table->string('species');
             $table->string('featured_image')->nullable();
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }

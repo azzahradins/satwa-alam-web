@@ -17,6 +17,6 @@ class SatwaController extends Controller
     }
 
     public function detail($id){
-        return view('detailsatwa');
+        return view('detailsatwa', ['id'=>$id]);
     }
 }

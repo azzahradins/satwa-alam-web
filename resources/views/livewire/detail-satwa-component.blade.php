@@ -1,50 +1,30 @@
-@section('satwa', 'font-semibold active')
-@section('content')
-    {{-- Introduction --}}
+{{--
+    location : /users/satwa/detail/id
+    component layout detail satwa
+--}}
+<div>
     <div class="w-full mx-auto flex-row justify-center lg:justify-between border-none sm:border-b-2 items-center">
         <div class="bg-primary flex">
             <div class=" lg:w-3/4 text-white py-5 mx-6">
-                <p class="text-start font-bold text-3xl mb-1 font-bold"> Burung Perkutut
-                    <small class="font-light"> (Geosprelia Striata) </small>
+                <p class="text-start font-bold text-3xl mb-1 font-bold"> {{$info[0]->animals_name}}
+                    <small class="font-light"> ({{$info[0]->scientific_name}}) </small>
                 </p>
-                <p>Deskripsi :  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis blandit eros. Nulla sit amet scelerisque ligula.</p>
+                <p>Deskripsi : {{$info[0]->deskripsi}}</p>
             </div>
-        </div>
-        <div class="container mx-auto flex flex-col my-6">
-            <div class="mb-7">
-                <h2 class="font-medium flex text-lg"> Peta Penyebaran </h2>
-                <div class="w-full justify-center">
-                    <div id='map' class="h-96 rounded-lg shadow-xl"></div>
-                </div>
-            </div>
-            <div>
-                <h2 class="font-medium flex text-lg mb-3"> Galeri Burung Perkutut </h2>
-                <div class="flex grid grid-cols-6 gap-3 mx-3">
-                    @for ($i = 0; $i < 4; $i++)
-                    <div class="h-full border rounded-md">
-                        <a href="{{ route('satwa_detail', ['animalsId'=>$i]) }}">
-                            <img class="w-full h-max" src="{{ asset('img/placeholder.jpg') }}">
-                            <div class="p-2 flex flex-cols">
-                                <div class="w-11/12">
-                                    <h1 class="font-medium">Perkutut Songgo Ratu</h1>
-                                    <p class="overflow-hidden text-sm">Oleh : Mr. Garfield</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @endfor
-                </div>
-            </div>
-            <a href="#" class="self-center rounded-md w-2/12 p-2 text-center mt-7 border border-4 border-blue-400 transition duration-300 ease-in-out hover:bg-secondary hover:text-white">
-                Load more
-            </a>
         </div>
     </div>
-@endsection
-@push('script')
+    <div class="container mx-auto flex flex-col my-6">
+        <div class="mb-7">
+            <h2 class="font-medium flex text-lg"> Peta Penyebaran </h2>
+            <div class="w-full justify-center">
+                <div id='map' class="h-96 rounded-lg shadow-xl"></div>
+            </div>
+        </div>
+        @livewire('gallery-component', ['animalsId' => $animals])
+    </div>
+    @push('script')
     <script>
         document.addEventListener('livewire:load', () => {
-            console.log("{{env('MAP_PUBLIC_KEY')}}");
             console.log("{{route('geojson', ['id' => $animals])}}")
             const defLocation = [{{$lng}}, {{$lat}}];
             mapboxgl.accessToken = '{{$key}}';
@@ -156,4 +136,5 @@
             map.addControl(new mapboxgl.NavigationControl);
         });
     </script>
-@endpush
+    @endpush
+</div>
