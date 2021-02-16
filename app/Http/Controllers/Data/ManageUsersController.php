@@ -27,7 +27,6 @@ class ManageUsersController extends Controller
     public static function pendingUsers(){
         return User::select()
         ->where('levels', '=', '3')
-        ->whereNotNull('email_verified_at')
         ->take(5)
         ->get();
     }
@@ -37,7 +36,6 @@ class ManageUsersController extends Controller
         ->leftJoin('user_level', function($join){
             $join->on('users.levels', '=', 'user_level.id');
         })
-        ->whereNotNull('email_verified_at')
         ->orderBy('created_at', 'DESC')
         ->paginate(10);
     }

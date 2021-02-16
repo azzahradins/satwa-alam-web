@@ -25,12 +25,6 @@ class AuthController extends Controller{
         if (! $token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Akun tidak ditemukan', 'status' => 401], 401);
         }
-        if (empty(auth()->user()->email_verified_at))
-        {
-            return response()->json(['message' => 'Email belum terverifikasi.',
-                'access_token' => $token
-            ], 401);
-        }
         return $this->respondWithToken($token);
     }
 

@@ -21,10 +21,10 @@ Route::get('/bantuan', [\App\Http\Controllers\Controller::class, 'bantuan'])->na
 Route::get('/bantuan#fitur', [\App\Http\Controllers\Controller::class, 'bantuan'])->name('fitur');
 Auth::routes(['verify' => true]);
 
-Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin')->middleware('verified','role');
-Route::get('/admin/contributions', [\App\Http\Controllers\AdminController::class, 'managepost'])->name('admin.manage')->middleware('verified', 'role');
-Route::get('/admin/users',[\App\Http\Controllers\AdminController::class, 'manageuser'])->name('admin.manageuser')->middleware('verified','role');
-Route::get('/admin/satwa',[\App\Http\Controllers\AdminController::class, 'managesatwa'])->name('admin.managesatwa')->middleware('verified','role');
+Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin')->middleware('role');
+Route::get('/admin/contributions', [\App\Http\Controllers\AdminController::class, 'managepost'])->name('admin.manage')->middleware('role');
+Route::get('/admin/users',[\App\Http\Controllers\AdminController::class, 'manageuser'])->name('admin.manageuser')->middleware('role');
+Route::get('/admin/satwa',[\App\Http\Controllers\AdminController::class, 'managesatwa'])->name('admin.managesatwa')->middleware('role');
 
 Route::get('/satwa', [\App\Http\Controllers\SatwaController::class, 'index'])->name('satwa');
 Route::get('/satwa/detail/{animalsId}', [\App\Http\Controllers\SatwaController::class, 'detail'])->name('satwa_detail');
